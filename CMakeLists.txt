@@ -10,4 +10,15 @@ add_executable(proyecto_final
         Entidad.h
         Jugador.cpp
         Jugador.h
-        main.cpp)
+        main.cpp
+        Enemigo.cpp
+        Enemigo.h
+        Orco.cpp
+        Orco.h
+        Serpiente.cpp
+        Serpiente.h
+        Caballero.cpp
+        Caballero.h
+        Zarthon.cpp
+        Zarthon.h
+)
