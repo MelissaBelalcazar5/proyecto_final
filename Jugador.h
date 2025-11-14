@@ -27,5 +27,5 @@ public:
     void usarObjeto(int indice);
     void mostrarInventario();
     void atacar(Entidad* objetivo) override;
-};
+}; 
 #endif //PROYECTO_FINAL_JUGADOR_H
