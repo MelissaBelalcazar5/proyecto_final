@@ -3,42 +3,112 @@
 //
 
 #include "Jugador.h"
-#include "Jugador.h"
 #include <iostream>
 using namespace std;
 
-void Jugador::mover(string nuevaUbicacion) {
-    ubicacion = nuevaUbicacion;
-    cout << nombre << " se mueve hacia " << nuevaUbicacion << "." << endl;
+void Jugador::mover(const string& dir) {
+    ubicacion = dir;
+    cout << nombre << " se mueve hacia " << dir << "." << endl;
+}
+
+void Jugador::defender() {
+    defendiendo = true;
+    cout << "🛡️ " << nombre << " se prepara para defenderse." << endl;
+}
+
+void Jugador::atacar(Entidad* objetivo) {
+    int danio = getDanioTotal();
+
+    cout << "⚔️ " << nombre << " ataca a " << objetivo->getNombre()
+         << " causando " << danio << " puntos de daño." << endl;
+
+    objetivo->recibirDanio(danio);
+}
+
+void Jugador::recibirDanio(int puntos) {
+    if (esquivarProximo) {
+        cout << "✨ " << nombre << " esquiva el ataque gracias al Cristal del Tiempo." << endl;
+        esquivarProximo = false;
+        return;
+    }
+
+    if (amuletoActivo) {
+        puntos = (int)(puntos * 0.8);
+        cout << "🔮 El Amuleto reduce el daño a " << puntos << "." << endl;
+    }
+
+    if (defendiendo) {
+        puntos /= 2;
+        cout << "🛡️ Defensa activa: daño reducido a " << puntos << "." << endl;
+        defendiendo = false;
+    }
+
+    vida -= puntos;
+    if (vida < 0) vida = 0;
+
+    cout << nombre << " recibe " << puntos << " de daño. Vida actual: "
+         << vida << endl;
+}
+
+void Jugador::curar(int puntos) {
+    vida += puntos;
+    if (vida > vidaMaxima) vida = vidaMaxima;
+
+    cout << "💖 " << nombre << " se cura " << puntos << " puntos. Vida actual: "
+         << vida << "/" << vidaMaxima << endl;
 }
 
 void Jugador::agregarObjeto(Objeto* obj) {
     inventario.push_back(obj);
-    cout << nombre << " ha obtenido un nuevo objeto." << endl;
+    cout << "🎁 Obtuviste: " << obj->getNombre() << endl;
 }
 
-void Jugador::usarObjeto(int indice) {
-    if (indice >= 0 && indice < inventario.size()) {
-        cout << nombre << " usa un objeto del inventario." << endl;
-        inventario.erase(inventario.begin() + indice);
-    } else {
-        cout << "Índice inválido." << endl;
-    }
-}
-
-void Jugador::mostrarInventario() {
+void Jugador::mostrarInventario() const {
     if (inventario.empty()) {
-        cout << "El inventario está vacío." << endl;
-    } else {
-        cout << "Inventario de " << nombre << ":" << endl;
-        for (int i = 0; i < inventario.size(); i++) {
-            cout << i << ". Objeto disponible." << endl;
-        }
+        cout << "👜 Tu inventario está vacío." << endl;
+        return;
+    }
+
+    cout << "👜 Inventario:" << endl;
+    for (size_t i = 0; i < inventario.size(); i++) {
+        cout << i << ". " << inventario[i]->getNombre()
+             << " (" << inventario[i]->getTipo() << ")" << endl;
     }
 }
 
-void Jugador::atacar(Entidad* objetivo) {
-    int danio = 15;
-    cout << nombre << " ataca a " << objetivo->getNombre() << " causando " << danio << " puntos de daño." << endl;
-    objetivo->recibirDanio(danio);
+void Jugador::usarObjeto(int idx) {
+    if (inventario.empty()) {
+        cout << "❌ No tienes objetos para usar." << endl;
+        return;
+    }
+
+    if (idx < 0 || idx >= (int)inventario.size()) {
+        cout << "❌ Índice inválido." << endl;
+        return;
+    }
+
+    Objeto* obj = inventario[idx];
+    obj->usar(*this);
+
+    delete obj;
+    inventario.erase(inventario.begin() + idx);
 }
+
+void Jugador::incrementarDanio(int cantidad) {
+    danioExtra += cantidad;
+    cout << "⚔️ Tu ataque aumenta permanentemente +" << cantidad
+         << " (Total: " << getDanioTotal() << ")." << endl;
+}
+
+void Jugador::activarAmuleto() {
+    amuletoActivo = true;
+    cout << "🔮 El Amuleto de Luz está activo (20% menos daño recibido)." << endl;
+}
+
+void Jugador::activarEsquiva() {
+    esquivarProximo = true;
+    cout << "✨ El Cristal del Tiempo te permitirá esquivar el próximo ataque." << endl;
+}
+
+
+

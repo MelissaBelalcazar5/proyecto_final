@@ -3,11 +3,14 @@
 //
 
 #include "Enemigo.h"
-#include "Enemigo.h"
+#include "Jugador.h"
+#include <iostream>
+using namespace std;
 
-void Enemigo::atacar(Entidad* objetivo) {
-    cout << "💢 " << nombre << " (" << tipo << ") ataca a "
-         << objetivo->getNombre() << " causando " << danioBase << " puntos de daño." << endl;
+void Enemigo::atacar(Jugador& jugador) {
+    cout << "💢 " << tipo << " " << nombre
+         << " ataca causando " << dano << " puntos de daño." << endl;
 
-    objetivo->recibirDanio(danioBase);
+    jugador.recibirDanio(dano);
 }
+

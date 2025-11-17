@@ -2,18 +2,22 @@
 // Created by Melissa Belalcazar on 11/11/25.
 //
 
-#ifndef PROYECTO_FINAL_ZARTHON_H
-#define PROYECTO_FINAL_ZARTHON_H
+#ifndef ZARTHON_H
+#define ZARTHON_H
 
-#pragma once
 #include "Enemigo.h"
+#include <iostream>
 
 class Zarthon : public Enemigo {
 public:
-    Zarthon() : Enemigo("Zarthon el Hechicero", 120, "Jefe Final", 25) {}
+    Zarthon(std::string n, int v = 120)
+        : Enemigo(n, v, "Hechicero Supremo", 20) {}
 
-    void invocarHechizoOscuro() {
-        cout << "🌀 " << getNombre() << " lanza un hechizo oscuro que sacude la torre." << endl;
+    void taunt() override {
+        std::cout << nombre << " ruge: 'Has llegado lejos... pero aquí termina tu historia.'" << std::endl;
     }
 };
-#endif //PROYECTO_FINAL_ZARTHON_H
+
+#endif
+
+

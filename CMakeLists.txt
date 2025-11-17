@@ -21,4 +21,20 @@ add_executable(proyecto_final
         Caballero.h
         Zarthon.cpp
         Zarthon.h
+        Nivel.cpp
+        Nivel.h
+        Juego.cpp
+        Juego.h
+        Objeto.cpp
+        Objeto.h
+        PocionVida.cpp
+        PocionVida.h
+        LlavePlata.cpp
+        LlavePlata.h
+        EspadaLuz.cpp
+        EspadaLuz.h
+        AmuletoLuz.cpp
+        AmuletoLuz.h
+        CristalTiempo.cpp
+        CristalTiempo.h
 )

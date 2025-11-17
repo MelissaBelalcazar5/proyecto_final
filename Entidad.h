@@ -1,37 +1,31 @@
 //
 // Created by Melissa Belalcazar on 9/11/25.
 //
+#ifndef ENTIDAD_H
+#define ENTIDAD_H
 
-#ifndef PROYECTO_FINAL_ENTIDAD_H
-#define PROYECTO_FINAL_ENTIDAD_H
-
-
-#pragma once
-#include <iostream>
 #include <string>
-using namespace std;
 
 class Entidad {
 protected:
-    string nombre;
+    std::string nombre;
     int vida;
 
 public:
-    Entidad(string n, int v) : nombre(n), vida(v) {}
+    Entidad(const std::string& n, int v) : nombre(n), vida(v) {}
 
-    string getNombre() { return nombre; }
-    int getVida() { return vida; }
+    virtual ~Entidad() = default;
 
-    bool estaViva() {
-        return vida > 0;
-    }
+    std::string getNombre() const { return nombre; }
+    int getVida() const { return vida; }
 
-    void recibirDanio(int puntos) {
+    virtual void recibirDanio(int puntos) {
         vida -= puntos;
         if (vida < 0) vida = 0;
-        cout << nombre << " recibió " << puntos << " puntos de daño. Vida restante: " << vida << endl;
     }
 
-    virtual void atacar(Entidad* objetivo) = 0;
+    bool estaViva() const { return vida > 0; }
 };
-#endif //PROYECTO_FINAL_ENTIDAD_H
+
+#endif
+

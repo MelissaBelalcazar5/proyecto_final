@@ -2,21 +2,22 @@
 // Created by Melissa Belalcazar on 11/11/25.
 //
 
-#ifndef PROYECTO_FINAL_SERPIENTE_H
-#define PROYECTO_FINAL_SERPIENTE_H
+#ifndef SERPIENTE_H
+#define SERPIENTE_H
 
-#pragma once
 #include "Enemigo.h"
+#include <iostream>
 
 class Serpiente : public Enemigo {
 public:
-    Serpiente(string nombre) : Enemigo(nombre, 40, "Serpiente del Pantano", 8) {}
+    Serpiente(std::string n, int v = 40)
+        : Enemigo(n, v, "Serpiente", 10) {}
 
-    void siseoVeneno() {
-        cout << "🐍 " << getNombre() << " sisea lanzando un chorro de veneno tóxico." << endl;
+    void taunt() override {
+        std::cout << nombre << " sisea: 'Ssss... te inyectaré mi veneno mortal...'" << std::endl;
     }
 };
 
+#endif
 
 
-#endif //PROYECTO_FINAL_SERPIENTE_H

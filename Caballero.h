@@ -2,18 +2,21 @@
 // Created by Melissa Belalcazar on 11/11/25.
 //
 
-#ifndef PROYECTO_FINAL_CABALLERO_H
-#define PROYECTO_FINAL_CABALLERO_H
+#ifndef CABALLERO_H
+#define CABALLERO_H
 
-#pragma once
 #include "Enemigo.h"
+#include <iostream>
 
 class Caballero : public Enemigo {
 public:
-    Caballero(string nombre) : Enemigo(nombre, 70, "Caballero Oscuro", 15) {}
+    Caballero(std::string n, int v = 60)
+        : Enemigo(n, v, "Caballero Oscuro", 15) {}
 
-    void desafiar() {
-        cout << "🛡️ " << getNombre() << " levanta su espada brillante y grita: '¡Por el honor de Zarthon!'" << endl;
+    void taunt() override {
+        std::cout << nombre << " exclama: '¡Por el honor de Zarthon, caerás!'" << std::endl;
     }
 };
-#endif //PROYECTO_FINAL_CABALLERO_H
+
+#endif
+

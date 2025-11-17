@@ -16,9 +16,11 @@ private:
     vector<Nivel*> niveles;
 
 public:
-    Juego();                      // Constructor que crea todo el juego
-    void iniciar();               // Muestra la introducción y arranca el juego
-    void jugar();                 // Recorre todos los niveles uno por uno
+    Juego();
+    ~Juego();
+    void iniciar();
+    void jugar();
 };
 
 #endif
+

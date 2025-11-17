@@ -1,25 +1,34 @@
 //
 // Created by Melissa Belalcazar on 11/11/25.
 //
+#ifndef ENEMIGO_H
+#define ENEMIGO_H
 
-#ifndef PROYECTO_FINAL_ENEMIGO_H
-#define PROYECTO_FINAL_ENEMIGO_H
-#pragma once
 #include "Entidad.h"
 #include <iostream>
-#include <string>
-using namespace std;
+
+class Jugador;
 
 class Enemigo : public Entidad {
 protected:
-    string tipo;
-    int danioBase;
+    std::string tipo;
+    int dano;
 
 public:
-    Enemigo(string n, int v, string t, int d) : Entidad(n, v), tipo(t), danioBase(d) {}
+    Enemigo(const std::string& n, int v, const std::string& t, int d)
+        : Entidad(n, v), tipo(t), dano(d) {}
 
-    string getTipo() { return tipo; }
+    virtual ~Enemigo() = default;
 
-    void atacar(Entidad* objetivo) override;
+    std::string getTipo() const { return tipo; }
+
+    virtual void taunt() {
+        std::cout << nombre << " te observa con hostilidad..." << std::endl;
+    }
+
+    virtual void atacar(Jugador& jugador);
 };
+
 #endif
+
+

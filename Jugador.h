@@ -2,30 +2,51 @@
 // Created by Melissa Belalcazar on 9/11/25.
 //
 
-#ifndef PROYECTO_FINAL_JUGADOR_H
-#define PROYECTO_FINAL_JUGADOR_H
+#ifndef JUGADOR_H
+#define JUGADOR_H
 
-
-#pragma once
-#include "Entidad.h"
-#include <vector>
 #include <string>
-using namespace std;
-
-class Objeto;
+#include <vector>
+#include "Entidad.h"
+#include "Objeto.h"
 
 class Jugador : public Entidad {
 private:
-    vector<Objeto*> inventario;
-    string ubicacion;
+    std::vector<Objeto*> inventario;
+    std::string ubicacion = "inicio";
+    bool defendiendo = false;
+    int vidaMaxima = 100;
+
+    int danioBase = 15;
+    int danioExtra = 0;
+    bool amuletoActivo = false;
+    bool esquivarProximo = false;
 
 public:
-    Jugador(string n, int v) : Entidad(n, v) {}
+    Jugador(std::string n, int v = 100) : Entidad(n, v), vidaMaxima(v) {}
 
-    void mover(string nuevaUbicacion);
+    //Movimiento y combate
+    void mover(const std::string& dir);
+    void defender();
+    void atacar(Entidad* objetivo);
+
+    //Vida
+    void recibirDanio(int puntos);
+    void curar(int puntos);
+
+    //Inventario
     void agregarObjeto(Objeto* obj);
-    void usarObjeto(int indice);
-    void mostrarInventario();
-    void atacar(Entidad* objetivo) override;
+    void mostrarInventario() const;
+    void usarObjeto(int idx);
+
+    //Efectos de objetos
+    void incrementarDanio(int cantidad);
+    void activarAmuleto();
+    void activarEsquiva();
+
+    int getDanioTotal() const { return danioBase + danioExtra; }
+    std::string getUbicacion() const { return ubicacion; }
 };
-#endif //PROYECTO_FINAL_JUGADOR_H
+
+#endif
+

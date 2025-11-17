@@ -1,19 +1,22 @@
 //
 // Created by Melissa Belalcazar on 11/11/25.
 //
+#ifndef ORCO_H
+#define ORCO_H
 
-#ifndef PROYECTO_FINAL_ORCO_H
-#define PROYECTO_FINAL_ORCO_H
-
-#pragma once
 #include "Enemigo.h"
+#include <iostream>
 
 class Orco : public Enemigo {
 public:
-    Orco(string nombre) : Enemigo(nombre, 50, "Orco de la Cueva", 10) {}
+    Orco(std::string n, int v = 50)
+        : Enemigo(n, v, "Orco", 12) {}
 
-    void rugirAmenazante() {
-        cout << "🗣️ " << getNombre() << " ruge con furia, levantando su hacha oxidada." << endl;
+    void taunt() override {
+        std::cout << nombre << " gruñe: '¡Tu cabeza adornará mi lanza!'" << std::endl;
     }
 };
-#endif //PROYECTO_FINAL_ORCO_H
+
+#endif
+
+
