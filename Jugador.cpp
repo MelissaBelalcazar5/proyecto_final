@@ -37,6 +37,11 @@ void Jugador::recibirDanio(int puntos) {
         cout << "🔮 El Amuleto reduce el daño a " << puntos << "." << endl;
     }
 
+    if (armaduraActiva) {
+        puntos = (int)(puntos * (1.0 - reduccionArmadura));
+        cout << "🛡️ La armadura reduce el daño a " << puntos << "." << endl;
+    }
+
     if (defendiendo) {
         puntos /= 2;
         cout << "🛡️ Defensa activa: daño reducido a " << puntos << "." << endl;
@@ -105,10 +110,40 @@ void Jugador::activarAmuleto() {
     cout << "🔮 El Amuleto de Luz está activo (20% menos daño recibido)." << endl;
 }
 
+void Jugador::activarArmadura() {
+    armaduraActiva = true;
+    reduccionArmadura = 0.30;
+    cout << "🛡️✨ Has obtenido la Armadura Sagrada. Reducirás 30% del daño recibido." << endl;
+}
+
 void Jugador::activarEsquiva() {
     esquivarProximo = true;
     cout << "✨ El Cristal del Tiempo te permitirá esquivar el próximo ataque." << endl;
 }
+void Jugador::ganarExperiencia(int cantidad) {
+    experiencia += cantidad;
+    cout << "⭐ Ganas " << cantidad << " puntos de experiencia. (Total: " << experiencia << ")\n";
+
+    if (experiencia >= nivel * 50) {
+        subirNivel();
+    }
+}
+
+void Jugador::subirNivel() {
+    nivel++;
+    experiencia = 0;
+
+    vidaMaxima += 20;
+    vida = vidaMaxima;
+    danioBase += 5;
+
+    cout << "💖 Vida máxima aumentada a " << vidaMaxima << endl;
+    cout << "⚔️ Daño base aumentado a " << danioBase << endl;
+    cout << "✨ ¡Te sientes más fuerte y poderoso!\n\n";
+}
+
+
+
 
 
 

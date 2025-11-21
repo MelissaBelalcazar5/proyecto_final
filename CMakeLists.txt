@@ -37,4 +37,6 @@ add_executable(proyecto_final
         AmuletoLuz.h
         CristalTiempo.cpp
         CristalTiempo.h
+        ArmaduraAcero.cpp
+        ArmaduraAcero.h
 )

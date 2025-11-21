@@ -5,7 +5,6 @@
 #define ENTIDAD_H
 
 #include <string>
-
 class Entidad {
 protected:
     std::string nombre;

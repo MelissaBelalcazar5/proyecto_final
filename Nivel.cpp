@@ -25,24 +25,23 @@ void Nivel::mostrarIntroduccion() {
 }
 
 void Nivel::iniciarCombate(Jugador& jugador) {
-    mostrarIntroduccion();
 
-    //Tiempo límite x nivel de 20 segundos
+    mostrarIntroduccion();
     auto inicio = chrono::steady_clock::now();
 
     while (jugador.estaViva() && enemigo->estaViva()) {
+
         auto ahora = chrono::steady_clock::now();
         auto diferencia = chrono::duration_cast<chrono::seconds>(ahora - inicio).count();
 
-        if (diferencia >= 20) {
-            cout << "\n⏳ Se acabó el tiempo... ¡" << jugador.getNombre()
-                 << " no logró vencer al enemigo!" << endl;
+        if (diferencia >= 300) {
+            cout << "\n⏳ Se te acabó el tiempo... ¡" << jugador.getNombre()
+                 << " no lograste vencer al enemigo!" << endl;
             jugador.recibirDanio(9999);
             return;
         }
 
-        cout << "\n⏱️ Tiempo restante: " << (20 - diferencia) << " segundos\n";
-
+        cout << "\n⏱️ Tiempo restante: " << (300 - diferencia) << " segundos\n";
         cout << "\n¿Qué deseas hacer?" << endl;
         cout << "1. Atacar ⚔️" << endl;
         cout << "2. Defender 🛡️" << endl;
@@ -95,24 +94,25 @@ void Nivel::iniciarCombate(Jugador& jugador) {
                 continue;
         }
 
-        if (enemigo->estaViva()) {
-            enemigo->atacar(jugador);
-        }
+        if (enemigo->estaViva()) enemigo->atacar(jugador);
     }
 
     if (jugador.estaViva()) {
-        cout << "\n🏆 ¡Has vencido a " << enemigo->getNombre() << "!\n";
+
+        cout << "\n🏆 ¡FELICIDADES has vencido a " << enemigo->getNombre() << "!\n";
+        jugador.ganarExperiencia(40);
 
         if (objetoDelNivel != nullptr) {
             cout << "🎁 Recibes: " << objetoDelNivel->getNombre() << endl;
             jugador.agregarObjeto(objetoDelNivel);
             objetoDelNivel = nullptr;
         }
-
-        cout << "➡️  Avanzas al siguiente nivel...\n";
     }
     else {
         cout << "\n💀 Has sido derrotado. Fin del juego.\n";
     }
 }
+
+
+
 

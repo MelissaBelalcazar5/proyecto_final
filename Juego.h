@@ -14,13 +14,27 @@ class Juego {
 private:
     Jugador jugador;
     vector<Nivel*> niveles;
+    int nivelActual = 0;
+    bool finalDesbloqueado = false;
 
 public:
     Juego();
     ~Juego();
-    void iniciar();
-    void jugar();
+
+    void menuPrincipal();
+    void iniciarNuevaPartida();
+    void reanudarPartida();
+    void menuFinal();
+
+    void jugarDesde(int inicio);
+
+    void guardarPartida();
+    bool cargarPartida();
+
+    void activarFinal();
+    bool finalListo() const { return finalDesbloqueado; }
 };
+
 
 #endif
 

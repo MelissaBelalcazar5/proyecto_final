@@ -8,6 +8,8 @@
 #include "Objeto.h"
 #include <iostream>
 
+class Jugador; // Declaración adelantada (IMPORTANTE)
+
 class LlavePlata : public Objeto {
 public:
     LlavePlata()
@@ -15,9 +17,10 @@ public:
                  "Llave antigua grabada con símbolos mágicos.",
                  "Clave") {}
 
-    void usar(Jugador& j) override {
-        std::cout << "🔑 Inserta la Llave de Plata... ¡la puerta del Castillo Interior se abre!\n";
-    }
+    void usar(Jugador& j) override;
 };
 
 #endif
+
+
+

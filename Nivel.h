@@ -8,6 +8,7 @@
 #include "Enemigo.h"
 #include "Objeto.h"
 
+
 class Jugador;
 
 class Nivel {
@@ -20,7 +21,7 @@ private:
 public:
     Nivel(std::string n, std::string d, Enemigo* e, Objeto* recompensa);
     void mostrarIntroduccion();
-    void iniciarCombate(Jugador& jugador);
+void iniciarCombate(Jugador& jugador);
 };
 
 #endif
